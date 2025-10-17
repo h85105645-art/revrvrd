@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Billie Eilish</string>
+    
+    <!-- Authentication -->
+    <string name="sign_in_with_google">تسجيل الدخول بـ Google</string>
+    <string name="welcome_back">مرحباً بعودتك</string>
+    <string name="sign_in_to_continue">سجل دخولك للمتابعة</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    
+    <!-- Navigation -->
+    <string name="movies">الأفلام</string>
+    <string name="series">المسلسلات</string>
+    <string name="anime">الأنمي</string>
+    <string name="favorites">المفضلة</string>
+    <string name="tv_channels">القنوات التلفزيونية</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="settings">الإعدادات</string>
+    
+    <!-- Content -->
+    <string name="popular">الأكثر شعبية</string>
+    <string name="trending">الأكثر رواجاً</string>
+    <string name="top_rated">الأعلى تقييماً</string>
+    <string name="upcoming">قريباً</string>
+    <string name="now_playing">يُعرض الآن</string>
+    <string name="search">البحث</string>
+    <string name="search_movies">البحث في الأفلام</string>
+    <string name="search_series">البحث في المسلسلات</string>
+    <string name="search_anime">البحث في الأنمي</string>
+    
+    <!-- Movie Details -->
+    <string name="overview">نظرة عامة</string>
+    <string name="cast">طاقم التمثيل</string>
+    <string name="rating">التقييم</string>
+    <string name="release_date">تاريخ الإصدار</string>
+    <string name="runtime">المدة</string>
+    <string name="genres">الأنواع</string>
+    <string name="watch_now">شاهد الآن</string>
+    <string name="add_to_favorites">إضافة للمفضلة</string>
+    <string name="remove_from_favorites">إزالة من المفضلة</string>
+    
+    <!-- Series Details -->
+    <string name="seasons">المواسم</string>
+    <string name="episodes">الحلقات</string>
+    <string name="season">الموسم</string>
+    <string name="episode">الحلقة</string>
+    
+    <!-- Settings -->
+    <string name="video_quality">جودة الفيديو</string>
+    <string name="video_provider">مزود الفيديو</string>
+    <string name="language">اللغة</string>
+    <string name="dark_mode">الوضع الليلي</string>
+    <string name="notifications">التنبيهات</string>
+    <string name="about">حول التطبيق</string>
+    
+    <!-- Video Player -->
+    <string name="play">تشغيل</string>
+    <string name="pause">إيقاف مؤقت</string>
+    <string name="fullscreen">ملء الشاشة</string>
+    <string name="exit_fullscreen">الخروج من ملء الشاشة</string>
+    <string name="quality_auto">تلقائي</string>
+    <string name="quality_1080p">1080p</string>
+    <string name="quality_720p">720p</string>
+    <string name="quality_480p">480p</string>
+    <string name="quality_360p">360p</string>
+    
+    <!-- Error Messages -->
+    <string name="error_network">خطأ في الشبكة</string>
+    <string name="error_loading">خطأ في التحميل</string>
+    <string name="error_sign_in">خطأ في تسجيل الدخول</string>
+    <string name="retry">إعادة المحاولة</string>
+    
+    <!-- Empty States -->
+    <string name="no_favorites">لا توجد مفضلات</string>
+    <string name="no_results">لا توجد نتائج</string>
+    <string name="add_some_favorites">أضف بعض المحتوى للمفضلة</string>
+    
+    <!-- Notifications -->
+    <string name="new_movie_notification">فيلم جديد متاح</string>
+    <string name="new_episode_notification">حلقة جديدة متاحة</string>
+    
+</resources>
