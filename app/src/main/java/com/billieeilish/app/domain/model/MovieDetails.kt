@@ -4,10 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Movie data model
+ * Detailed movie information model
  */
 @Serializable
-data class Movie(
+data class MovieDetails(
     val id: Int,
     val title: String,
     val overview: String,
@@ -21,15 +21,18 @@ data class Movie(
     val voteAverage: Double,
     @SerialName("vote_count")
     val voteCount: Int,
-    val popularity: Double,
+    val runtime: Int?,
+    val genres: List<Genre>,
     @SerialName("original_language")
     val originalLanguage: String,
     @SerialName("original_title")
     val originalTitle: String,
+    val popularity: Double,
     val adult: Boolean,
-    val video: Boolean,
-    @SerialName("genre_ids")
-    val genreIds: List<Int>
+    val budget: Long?,
+    val revenue: Long?,
+    val status: String?,
+    val tagline: String?
 ) {
     val fullPosterPath: String
         get() = "https://image.tmdb.org/t/p/w500$posterPath"
@@ -42,28 +45,45 @@ data class Movie(
     
     val releaseYear: String
         get() = releaseDate.take(4)
+    
+    val formattedRuntime: String
+        get() = runtime?.let { "${it / 60}h ${it % 60}m" } ?: ""
 }
 
 /**
- * Movie response from TMDB API
+ * Movie genre model
  */
 @Serializable
-data class MovieResponse(
-    val page: Int,
-    val results: List<Movie>,
-    @SerialName("total_pages")
-    val totalPages: Int,
-    @SerialName("total_results")
-    val totalResults: Int
+data class Genre(
+    val id: Int,
+    val name: String
 )
 
-
-
 /**
- * Credits response
+ * Cast member model
  */
 @Serializable
-data class Credits(
+data class Cast(
     val id: Int,
-    val cast: List<Cast>
+    val name: String,
+    val character: String,
+    @SerialName("profile_path")
+    val profilePath: String?,
+    val order: Int = 0
+) {
+    val fullProfilePath: String
+        get() = profilePath?.let { "https://image.tmdb.org/t/p/w185$it" } ?: ""
+}
+
+/**
+ * Video model (trailers, teasers, etc.)
+ */
+@Serializable
+data class Video(
+    val id: String,
+    val key: String,
+    val name: String,
+    val site: String,
+    val type: String,
+    val official: Boolean
 )

@@ -47,7 +47,9 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 
                 // Start sign-in intent
                 val signInIntent = googleSignInClient?.signInIntent
-                activity.startActivityForResult(signInIntent, RC_SIGN_IN)
+                signInIntent?.let { intent ->
+                    activity.startActivityForResult(intent, RC_SIGN_IN)
+                }
                 
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(

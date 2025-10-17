@@ -98,7 +98,10 @@ class TvChannelsViewModel @Inject constructor(
             return
         }
         
-        val currentChannels = (_channels.value as? UiState.Success)?.data ?: return
+        val currentChannels = when (val state = _channels.value) {
+            is UiState.Success -> state.data
+            else -> return
+        }
         val filteredChannels = currentChannels.filter { channel ->
             channel.name.contains(query, ignoreCase = true) ||
             channel.group.contains(query, ignoreCase = true) ||

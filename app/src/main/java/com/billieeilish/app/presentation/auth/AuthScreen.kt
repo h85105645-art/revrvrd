@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -186,6 +187,48 @@ fun AuthScreen(
                 }
             }
             
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            // Guest Mode Button
+            OutlinedButton(
+                onClick = {
+                    // Continue as guest without Firebase authentication
+                    onSignInSuccess()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = Color.White
+                ),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp, 
+                    Color.White.copy(alpha = 0.5f)
+                ),
+                shape = RoundedCornerShape(28.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.White
+                    )
+                    
+                    Spacer(modifier = Modifier.width(8.dp))
+                    
+                    Text(
+                        text = "متابعة كضيف",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
+            }
+            
             // Error Message
             if (uiState.errorMessage != null) {
                 Spacer(modifier = Modifier.height(16.dp))
@@ -198,7 +241,7 @@ fun AuthScreen(
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
-                        text = uiState.errorMessage,
+                        text = uiState.errorMessage ?: "",
                         modifier = Modifier.padding(16.dp),
                         color = Color(0xFFCF6679),
                         style = MaterialTheme.typography.bodyMedium,
@@ -215,17 +258,17 @@ fun AuthScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 FeatureItem(
-                    icon = "🎬",
+                    icon = Icons.Default.Movie,
                     title = "أفلام",
                     subtitle = "آلاف الأفلام"
                 )
                 FeatureItem(
-                    icon = "📺",
+                    icon = Icons.Default.Tv,
                     title = "مسلسلات",
                     subtitle = "أحدث المسلسلات"
                 )
                 FeatureItem(
-                    icon = "🎌",
+                    icon = Icons.Default.PlayArrow,
                     title = "أنمي",
                     subtitle = "أفضل الأنمي"
                 )
@@ -236,16 +279,18 @@ fun AuthScreen(
 
 @Composable
 private fun FeatureItem(
-    icon: String,
+    icon: ImageVector,
     title: String,
     subtitle: String
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = icon,
-            fontSize = 32.sp
+        Icon(
+            imageVector = icon,
+            contentDescription = title,
+            modifier = Modifier.size(32.dp),
+            tint = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(

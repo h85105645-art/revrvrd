@@ -24,7 +24,7 @@ class IptvRepositoryImpl @Inject constructor(
         private const val COUNTRIES_CHANNELS_URL = "https://iptv-org.github.io/iptv/countries/"
     }
     
-    override suspend fun getChannels(): Flow<Resource<List<TvChannel>>> = flow {
+    override fun getChannels(): Flow<Resource<List<TvChannel>>> = flow {
         try {
             emit(Resource.Loading())
             
@@ -46,11 +46,11 @@ class IptvRepositoryImpl @Inject constructor(
         }
     }
     
-    override suspend fun getChannelsByCountry(countryCode: String): Flow<Resource<List<TvChannel>>> = flow {
+    override fun getChannelsByCountry(country: String): Flow<Resource<List<TvChannel>>> = flow {
         try {
             emit(Resource.Loading())
             
-            val url = "${COUNTRIES_CHANNELS_URL}${countryCode.lowercase()}.m3u"
+            val url = "${COUNTRIES_CHANNELS_URL}${country.lowercase()}.m3u"
             val request = Request.Builder()
                 .url(url)
                 .build()
@@ -62,14 +62,14 @@ class IptvRepositoryImpl @Inject constructor(
                 val channels = parseM3uPlaylist(m3uContent)
                 emit(Resource.Success(channels))
             } else {
-                emit(Resource.Error("Failed to fetch channels for country: $countryCode"))
+                emit(Resource.Error("Failed to fetch channels for country: $country"))
             }
         } catch (e: Exception) {
             emit(Resource.Error("Network error: ${e.message}"))
         }
     }
     
-    override suspend fun getChannelsByCategory(category: String): Flow<Resource<List<TvChannel>>> = flow {
+    override fun getChannelsByCategory(category: String): Flow<Resource<List<TvChannel>>> = flow {
         try {
             emit(Resource.Loading())
             
@@ -89,6 +89,30 @@ class IptvRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             emit(Resource.Error("Network error: ${e.message}"))
+        }
+    }
+    
+    override fun searchChannels(query: String): Flow<Resource<List<TvChannel>>> = flow {
+        try {
+            emit(Resource.Loading())
+            
+            // Get all channels first
+            getChannels().collect { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        val filteredChannels = resource.data?.filter { channel ->
+                            channel.name.contains(query, ignoreCase = true) ||
+                            channel.country.contains(query, ignoreCase = true) ||
+                            channel.category.contains(query, ignoreCase = true)
+                        } ?: emptyList()
+                        emit(Resource.Success(filteredChannels))
+                    }
+                    is Resource.Error -> emit(Resource.Error(resource.message ?: "Search failed"))
+                    is Resource.Loading -> emit(Resource.Loading())
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error("Search error: ${e.message}"))
         }
     }
     

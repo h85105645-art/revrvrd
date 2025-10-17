@@ -26,8 +26,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.billieeilish.app.domain.model.Cast
 import com.billieeilish.app.domain.model.Movie
+import com.billieeilish.app.domain.model.MovieDetails
+import com.billieeilish.app.domain.model.Cast
 import com.billieeilish.app.presentation.player.VideoPlayerActivity
 import com.billieeilish.app.utils.UiState
 
@@ -60,7 +61,7 @@ fun MovieDetailsScreen(
         }
         
         is UiState.Success -> {
-            val movie = movieState.data
+            val movieDetails = (movieState as UiState.Success).data
             
             LazyColumn(
                 modifier = Modifier
@@ -77,33 +78,33 @@ fun MovieDetailsScreen(
                 item {
                     // Movie Header with Backdrop
                     MovieHeader(
-                        movie = movie,
+                        movie = movieDetails,
                         onBackPressed = onBackPressed,
                         onPlayClick = {
                             // Launch video player with SuperEmbed URL
                             val intent = Intent(context, VideoPlayerActivity::class.java).apply {
                                 putExtra(VideoPlayerActivity.EXTRA_VIDEO_URL, 
-                                    "https://multiembed.mov/directstream.php?video_id=${movie.id}&tmdb=1")
-                                putExtra(VideoPlayerActivity.EXTRA_VIDEO_TITLE, movie.title)
+                                    "https://multiembed.mov/directstream.php?video_id=${movieDetails.id}&tmdb=1")
+                                putExtra(VideoPlayerActivity.EXTRA_VIDEO_TITLE, movieDetails.title)
                             }
                             context.startActivity(intent)
                         },
                         onFavoriteClick = {
-                            viewModel.toggleFavorite(movie)
+                            viewModel.toggleFavorite(movieDetails)
                         }
                     )
                 }
                 
                 item {
                     // Movie Info
-                    MovieInfo(movie = movie)
+                    MovieInfo(movie = movieDetails)
                 }
                 
                 item {
                     // Cast Section
                     when (creditsState) {
                         is UiState.Success -> {
-                            CastSection(cast = creditsState.data.cast)
+                            CastSection(cast = (creditsState as UiState.Success).data.cast)
                         }
                         else -> {}
                     }
@@ -120,7 +121,7 @@ fun MovieDetailsScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = movieState.message,
+                        text = (movieState as UiState.Error).message,
                         color = Color.Red,
                         style = MaterialTheme.typography.bodyLarge
                     )
@@ -140,7 +141,7 @@ fun MovieDetailsScreen(
 
 @Composable
 private fun MovieHeader(
-    movie: Movie,
+    movie: MovieDetails,
     onBackPressed: () -> Unit,
     onPlayClick: () -> Unit,
     onFavoriteClick: () -> Unit
@@ -282,7 +283,7 @@ private fun MovieHeader(
 }
 
 @Composable
-private fun MovieInfo(movie: Movie) {
+private fun MovieInfo(movie: MovieDetails) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

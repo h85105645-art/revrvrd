@@ -107,7 +107,7 @@ fun TvChannelsScreen(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(channelsState.data) { channel ->
+                    items((channelsState as UiState.Success).data) { channel ->
                         ChannelItem(
                             channel = channel,
                             onClick = {
@@ -139,7 +139,7 @@ fun TvChannelsScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = channelsState.message,
+                            text = (channelsState as UiState.Error).message,
                             color = Color.Red,
                             style = MaterialTheme.typography.bodyLarge
                         )
