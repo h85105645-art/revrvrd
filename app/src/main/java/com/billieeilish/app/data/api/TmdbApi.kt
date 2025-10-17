@@ -12,11 +12,9 @@ import retrofit2.http.Query
 interface TmdbApi {
     
     companion object {
-        const val BASE_URL = "https://api.themoviedb.org/3/"
-        const val API_KEY = "ca7609719a561b341c8062c337abe397"
-        const val BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTc2MDk3MTlhNTYxYjM0MWM4MDYyYzMzN2FiZTM5NyIsIm5iZiI6MTc0NDI5MzUwOC4xMDQsInN1YiI6IjY3ZjdjZTg0MzE3NzUyNzZkNmQ5OTM4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jB-LdCFKnX7xETXv3UgAHXffgoCOFK9wfyr6Z8y4AzI"
-    }
-    
+        const val BASE_URL = "YOUR_URL"
+        const val API_KEY = "YOUR_API"
+        const val BEARER_TOKEN = "YOUR_TOKEN_HEAR"
     // Movies endpoints
     @GET("movie/popular")
     suspend fun getPopularMovies(
