@@ -12,8 +12,8 @@ import retrofit2.http.Query
 interface SuperEmbedApi {
     
     companion object {
-        const val BASE_URL = "https://multiembed.mov/"
-        const val EMBED_BASE_URL = "https://multiembed.mov/directstream.php"
+        const val BASE_URL = "YOUR_URL"
+        const val EMBED_BASE_URL = "YOUR_URL"
     }
     
     /**
